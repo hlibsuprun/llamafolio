@@ -1,0 +1,7 @@
+.title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  color: var(--surface-on);
+  text-align: center;
+  user-select: none;
+}

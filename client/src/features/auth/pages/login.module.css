@@ -1,0 +1,37 @@
+.link-logo {
+  transition: all 0.2s ease;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 150px;
+  fill: var(--primary-color);
+}
+
+[data-theme='dark'] {
+  .logo {
+    fill: var(--background-on);
+  }
+}
+
+.signup {
+  margin: 0 auto;
+  font-size: 0.875rem;
+  color: var(--surface-on-muted);
+  user-select: none;
+}
+
+.link-signup {
+  color: var(--surface-on);
+}
+
+@media (hover: hover) {
+  .link-logo:hover {
+    opacity: 0.8;
+  }
+
+  .link-signup:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+}
