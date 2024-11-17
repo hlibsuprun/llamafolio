@@ -6,20 +6,19 @@ interface PrimaryButtonProps {
   text: string
   type: 'button' | 'reset' | 'submit' | 'link'
   href?: string
-  className: string
 }
 
-export const PrimaryButton: FC<PrimaryButtonProps> = ({ text, type, href, className }) => {
+export const PrimaryButton: FC<PrimaryButtonProps> = ({ text, type, href }) => {
   switch (type) {
     case 'link':
       return (
-        <a className={`${styles.link} ${className} transition`} href={href}>
+        <a className={styles.link} href={href}>
           {text}
         </a>
       )
     default:
       return (
-        <button className={`${styles.button} ${className} transition`} type={type}>
+        <button className={styles.button} type={type}>
           {text}
         </button>
       )

@@ -63,7 +63,7 @@ export const Register: FC = () => {
             })}
           />
 
-          <PrimaryButton type='submit' text='Next' className={styles.button} />
+          <PrimaryButton type='submit' text='Next' />
         </form>
 
         <Or />

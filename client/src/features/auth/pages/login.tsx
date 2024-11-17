@@ -72,7 +72,7 @@ export const Login: FC = () => {
             })}
           />
 
-          <PrimaryButton type='submit' text='Log in' className={styles.button} />
+          <PrimaryButton type='submit' text='Log in' />
         </form>
 
         <Or />
