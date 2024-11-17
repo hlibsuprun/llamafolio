@@ -4,16 +4,15 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { PrimaryButton } from '@shared/ui'
 
 import styles from './login-form.module.css'
-import { Checkbox, ErrorMessage, Input, Or, SocialAuthButton, Title } from './ui'
+import { ErrorMessage, Input, Or, SocialAuthButton, Title } from './ui'
 
 interface LoginFormInputs {
   email: string
   password: string
-  rememberMe: boolean
 }
 
 export const LoginForm: FC = () => {
-  const [error, setError] = useState<string | undefined>()
+  const [error, setError] = useState<string | null>()
   const {
     register,
     handleSubmit,
@@ -21,16 +20,12 @@ export const LoginForm: FC = () => {
   } = useForm<LoginFormInputs>()
 
   useEffect(() => {
-    if (errors.email?.message || errors.password?.message) {
-      if (errors.email?.message && errors.password?.message) {
-        setError('Please provide both email and password.')
-      } else if (errors.email?.message) {
-        setError(errors.email.message)
-      } else if (errors.password?.message) {
-        setError(errors.password.message)
-      }
+    if (errors.email?.message) {
+      setError(errors.email.message)
+    } else if (errors.password?.message) {
+      setError(errors.password.message)
     } else {
-      setError(undefined)
+      setError(null)
     }
   }, [errors.email, errors.password])
 
@@ -74,8 +69,6 @@ export const LoginForm: FC = () => {
             required: 'Please enter your password.'
           })}
         />
-
-        <Checkbox inputClassName={styles.checkbox} text='Remember me' {...register('rememberMe')} />
       </div>
 
       <PrimaryButton type='submit' text='Log in' className={styles.button} />

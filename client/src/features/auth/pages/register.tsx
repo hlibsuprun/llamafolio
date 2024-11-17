@@ -1,43 +1,43 @@
 import { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 import { PrimaryButton } from '@shared/ui'
 
-import { Prompt } from '../components/ui'
-import { ErrorMessage, Input, Or, SocialAuthButton, Title } from '../components/ui'
-import styles from './login.module.css'
+import { ErrorMessage, Input, Or, Prompt, SocialAuthButton, Title } from '../components/ui'
+import styles from './register.module.css'
 
-interface LoginFormInputs {
+interface RegisterFormInputs {
   email: string
-  password: string
 }
 
-export const Login: FC = () => {
-  const [error, setError] = useState<string | null>()
+export const Register: FC = () => {
+  const navigate = useNavigate()
+  const [error, setError] = useState<string | undefined>()
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<LoginFormInputs>()
+  } = useForm<RegisterFormInputs>()
 
   useEffect(() => {
-    if (errors.email?.message) {
+    if (errors.email) {
       setError(errors.email.message)
-    } else if (errors.password?.message) {
-      setError(errors.password.message)
     } else {
-      setError(null)
+      setError(undefined)
     }
-  }, [errors.email, errors.password])
+  }, [errors.email])
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
     console.log('Form data:', data)
+    localStorage.setItem('register-email', data.email)
+    await navigate('/register/verification')
   }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <Title text='Log in' />
+        <Title text='Create account' />
 
         <form
           className={styles.form}
@@ -63,23 +63,14 @@ export const Login: FC = () => {
             })}
           />
 
-          <Input
-            type='password'
-            text='Password'
-            forgotPassword={true}
-            {...register('password', {
-              required: 'Please enter your password.'
-            })}
-          />
-
-          <PrimaryButton type='submit' text='Log in' className={styles.button} />
+          <PrimaryButton type='submit' text='Next' className={styles.button} />
         </form>
 
         <Or />
         <SocialAuthButton social='Google' />
       </div>
 
-      <Prompt question='New to Llamafolio?' answer='Create account' link='/register' />
+      <Prompt question='Already have an account?' answer='Log in' link='login' />
     </div>
   )
 }
