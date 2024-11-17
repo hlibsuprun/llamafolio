@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { GoogleLogo } from 'shared/icons'
+import { GoogleLogo } from '@shared/icons'
 
 import styles from './social-auth-button.module.css'
 

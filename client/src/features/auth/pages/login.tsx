@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Logo } from 'shared/icons'
+import { Logo } from '@shared/icons'
 
 import { LoginForm } from '../components/login-form'
 import styles from './login.module.css'
