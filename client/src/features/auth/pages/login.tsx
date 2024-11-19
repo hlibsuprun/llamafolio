@@ -1,10 +1,11 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { PrimaryButton } from '@shared/ui'
+import { InputEmail, InputPassword, validationRules } from '@shared/ui/inputs'
 
 import { Prompt } from '../components/ui'
-import { ErrorMessage, Input, Or, SocialAuthButton, Title } from '../components/ui'
+import { Or, SocialAuthButton, Title } from '../components/ui'
 import styles from './login.module.css'
 
 interface LoginFormInputs {
@@ -13,22 +14,11 @@ interface LoginFormInputs {
 }
 
 export const Login: FC = () => {
-  const [error, setError] = useState<string | null>()
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<LoginFormInputs>()
-
-  useEffect(() => {
-    if (errors.email?.message) {
-      setError(errors.email.message)
-    } else if (errors.password?.message) {
-      setError(errors.password.message)
-    } else {
-      setError(null)
-    }
-  }, [errors.email, errors.password])
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     console.log('Form data:', data)
@@ -47,35 +37,24 @@ export const Login: FC = () => {
             void handleSubmit(onSubmit)(e)
           }}
         >
-          {error && <ErrorMessage message={error} />}
-
-          <Input
-            type='text'
-            text='Email address'
-            forgotPassword={false}
-            {...register('email', {
-              required: 'Enter your email address.',
-              pattern: {
-                value:
-                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: 'Enter a valid email address.'
-              }
-            })}
+          <InputEmail
+            label='Email address'
+            error={errors.email?.message}
+            {...register('email', validationRules.email)}
           />
 
-          <Input
-            type='password'
-            text='Password'
+          <InputPassword
+            label='Password'
             forgotPassword={true}
-            {...register('password', {
-              required: 'Please enter your password.'
-            })}
+            error={errors.password?.message}
+            {...register('password', validationRules.password)}
           />
 
           <PrimaryButton type='submit' text='Log in' />
         </form>
 
         <Or />
+
         <SocialAuthButton social='Google' />
       </div>
 

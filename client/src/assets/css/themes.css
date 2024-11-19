@@ -21,6 +21,8 @@
   --primary-color-50: rgba(124, 58, 237, 0.5);
   --primary-color-hover: rgb(109, 40, 217);
   --primary-color-on: rgb(255, 255, 255);
+  --error-color: rgb(185, 28, 28);
+  --complete-color: rgb(21, 128, 61);
 
   /* Shadows */
   --surface-shadow: 0 0 #0000, 0 0 #0000, 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);

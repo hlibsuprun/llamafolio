@@ -1,0 +1,77 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.link {
+  user-select: none;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--surface-on-muted);
+  transition: var(--transition);
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  margin: 0.5rem 0;
+  color: var(--input-text);
+}
+
+.input {
+  all: unset;
+  box-sizing: border-box;
+  flex-grow: 1;
+  padding: 0.625rem calc(4.75rem + 0.725rem * 2) 0.625rem 0.725rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+
+  &.error {
+    border-color: var(--error-color);
+  }
+
+  &:focus {
+    border-color: var(--primary-color);
+  }
+}
+
+.resend {
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: fit-content;
+  height: 100%;
+  font-size: 0.75rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.button {
+  all: unset;
+  height: 100%;
+  padding: 0 0.725rem;
+  text-wrap: nowrap;
+  color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.timer {
+  padding: 0 0.725rem;
+}
+
+@media (hover: hover) {
+  .button:hover {
+    color: var(--primary-color-hover);
+  }
+
+  .input:hover {
+    border-color: var(--primary-color);
+  }
+}

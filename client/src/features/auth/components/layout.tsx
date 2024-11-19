@@ -9,7 +9,7 @@ export const Layout: FC = () => {
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
-        <Logo width={150} />
+        <Logo width={170} />
       </header>
 
       <main className={styles.main}>

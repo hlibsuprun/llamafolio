@@ -3,37 +3,35 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 import { PrimaryButton } from '@shared/ui'
-import { InputOtp, validationRules } from '@shared/ui/inputs'
+import { InputPassword, validationRules } from '@shared/ui/inputs'
 
 import { Prompt, Title } from '../components/ui'
-import styles from './register-verification.module.css'
+import styles from './register-set-password.module.css'
 
-interface OtpFormInputs {
-  otp: string
+interface SetPasswordFormInputs {
+  password: string
 }
 
-export const RegisterVerification: FC = () => {
-  const email = localStorage.getItem('register-email')
-
+export const RegisterSetPassword: FC = () => {
   const navigate = useNavigate()
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors }
-  } = useForm<OtpFormInputs>()
+  } = useForm<SetPasswordFormInputs>()
 
-  const onSubmit: SubmitHandler<OtpFormInputs> = async (data) => {
+  const password = watch('password', '')
+
+  const onSubmit: SubmitHandler<SetPasswordFormInputs> = async (data) => {
     console.log('Form data:', data)
-    await navigate('/register/set-password')
+    await navigate('/register/repeat-password')
   }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <div className={styles.text}>
-          <Title text='Verify your email' />
-          <p className={styles.description}>A 6-digit code has been sent to {email}.</p>
-        </div>
+        <Title text='Set password' />
 
         <form
           className={styles.form}
@@ -43,11 +41,11 @@ export const RegisterVerification: FC = () => {
             void handleSubmit(onSubmit)(e)
           }}
         >
-          <InputOtp
-            label='Verification Code'
-            resend={true}
-            error={errors.otp?.message}
-            {...register('otp', validationRules.otp)}
+          <InputPassword
+            label='Password'
+            password={password}
+            error={errors.password?.message}
+            {...register('password', validationRules.newPassword)}
           />
 
           <PrimaryButton type='submit' text='Next' />

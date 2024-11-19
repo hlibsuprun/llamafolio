@@ -25,6 +25,23 @@ export const useLocalStorage = (keys: string[]) => {
     setValues((prev) => ({ ...prev, [key]: value }))
   }
 
+  const removeValues = (keysToRemove: string | string[]) => {
+    const keysArray = Array.isArray(keysToRemove) ? keysToRemove : [keysToRemove]
+
+    setValues((prev) => {
+      const updatedValues = { ...prev }
+      keysArray.forEach((key) => {
+        if (keys.includes(key)) {
+          localStorage.removeItem(key)
+          delete updatedValues[key]
+        } else {
+          console.warn(`Key "${key}" is not tracked by useLocalStorage.`)
+        }
+      })
+      return updatedValues
+    })
+  }
+
   useEffect(() => {
     const handleStorageChange = () => {
       setValues(() =>
@@ -41,5 +58,5 @@ export const useLocalStorage = (keys: string[]) => {
     }
   }, [keys])
 
-  return [values, setValue] as const
+  return [values, setValue, removeValues] as const
 }

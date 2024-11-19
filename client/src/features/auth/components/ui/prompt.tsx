@@ -3,7 +3,7 @@ import { FC } from 'react'
 import styles from './prompt.module.css'
 
 interface PromptProps {
-  question: string
+  question?: string
   answer: string
   link: string
 }

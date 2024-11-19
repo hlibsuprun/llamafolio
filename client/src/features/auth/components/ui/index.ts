@@ -1,5 +1,4 @@
 export { Checkbox } from './checkbox'
-export { ErrorMessage } from './error-message'
 export { Input } from './input'
 export { Or } from './or'
 export { Prompt } from './prompt'
