@@ -1,31 +1,33 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { useDocumentTitle } from '@shared/hooks'
 import { PrimaryButton } from '@shared/ui'
 import { InputPassword, validationRules } from '@shared/ui/inputs'
 
 import { Prompt, Title } from '../components/ui'
-import styles from './register-set-password.module.css'
+import styles from './reset-password-confirm.module.css'
 
-interface RepeatPasswordFormInputs {
+interface PasswordFormInputs {
   password: string
 }
 
-export const RegisterRepeatPassword: FC = () => {
+export const ResetPasswordConfirm: FC = memo(() => {
+  useDocumentTitle('Confirm New Password')
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<RepeatPasswordFormInputs>()
+  } = useForm<PasswordFormInputs>()
 
-  const onSubmit: SubmitHandler<RepeatPasswordFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<PasswordFormInputs> = (data) => {
     console.log('Form data:', data)
   }
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <div className={styles.container}>
-        <Title text='Repeat password' />
+        <Title text='Confirm New Password' />
 
         <form
           className={styles.form}
@@ -41,11 +43,11 @@ export const RegisterRepeatPassword: FC = () => {
             {...register('password', validationRules.password)}
           />
 
-          <PrimaryButton type='submit' text='Create Account' />
+          <PrimaryButton type='submit' text='Change Password' />
         </form>
       </div>
 
-      <Prompt answer='← Back' link='/register/set-password' />
-    </div>
+      <Prompt answer='← Back' link='/reset-password' />
+    </>
   )
-}
+})

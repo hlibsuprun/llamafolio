@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import styles from './prompt.module.css'
 
@@ -8,7 +8,7 @@ interface PromptProps {
   link: string
 }
 
-export const Prompt: FC<PromptProps> = ({ question, answer, link }) => {
+export const Prompt: FC<PromptProps> = memo(({ question, answer, link }) => {
   return (
     <div className={styles.wrapper}>
       {question}{' '}
@@ -17,4 +17,4 @@ export const Prompt: FC<PromptProps> = ({ question, answer, link }) => {
       </a>
     </div>
   )
-}
+})

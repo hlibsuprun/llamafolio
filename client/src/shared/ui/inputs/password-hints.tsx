@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { FaCheck } from 'react-icons/fa6'
 
 import styles from './password-hints.module.css'
@@ -8,7 +8,7 @@ interface PasswordHintsProps {
   error: boolean
 }
 
-export const PasswordHints: FC<PasswordHintsProps> = ({ password, error }) => {
+export const PasswordHints: FC<PasswordHintsProps> = memo(({ password, error }) => {
   const conditions = [
     { test: (val: string) => val.length >= 8, message: 'Minimum 8 characters' },
     { test: (val: string) => /[0-9]/.test(val), message: 'At least 1 number' },
@@ -25,4 +25,4 @@ export const PasswordHints: FC<PasswordHintsProps> = ({ password, error }) => {
       ))}
     </ul>
   )
-}
+})

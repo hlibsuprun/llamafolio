@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 interface GoogleLogoProps {
   size: string
 }
 
-export const GoogleLogo: FC<GoogleLogoProps> = ({ size }) => {
+export const GoogleLogo: FC<GoogleLogoProps> = memo(({ size }) => {
   return (
     <svg width={size} height={size} viewBox='0 0 33 32' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <g clipPath='url(#clip0_4132_5805)'>
@@ -32,4 +32,4 @@ export const GoogleLogo: FC<GoogleLogoProps> = ({ size }) => {
       </defs>
     </svg>
   )
-}
+})

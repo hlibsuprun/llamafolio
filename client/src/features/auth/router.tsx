@@ -1,38 +1,56 @@
 import { Navigate, RouteObject } from 'react-router-dom'
 
-import { GuardedRoute, Layout } from './components'
-import { Login, Register } from './pages'
-import { RegisterRepeatPassword } from './pages/register-repeat-password'
-import { RegisterSetPassword } from './pages/register-set-password'
-import { RegisterVerification } from './pages/register-verification'
+import { Layout } from './components'
+import {
+  Login,
+  LoginForgotPassword,
+  LoginPassword,
+  LoginVerification,
+  Register,
+  RegisterConfirmPassword,
+  RegisterSetPassword,
+  RegisterVerification,
+  ResetPassword,
+  ResetPasswordConfirm
+} from './pages'
 
 export const router: RouteObject = {
   element: <Layout />,
   children: [
     { path: '*', element: <Navigate to='/login' /> },
     { path: '/login', element: <Login /> },
+    {
+      path: '/login/verification',
+      element: <LoginVerification />
+    },
+    {
+      path: '/login/password',
+      element: <LoginPassword />
+    },
+    {
+      path: '/login/forgot-password',
+      element: <LoginForgotPassword />
+    },
     { path: '/register', element: <Register /> },
     {
       path: '/register/verification',
-      element: (
-        <GuardedRoute element={<RegisterVerification />} conditions={['register-email']} redirectPath='/register' />
-      )
+      element: <RegisterVerification />
     },
     {
       path: '/register/set-password',
-      element: (
-        <GuardedRoute element={<RegisterSetPassword />} conditions={['register-email']} redirectPath='/register' />
-      )
+      element: <RegisterSetPassword />
     },
     {
-      path: '/register/repeat-password',
-      element: (
-        <GuardedRoute
-          element={<RegisterRepeatPassword />}
-          conditions={['register-email']}
-          redirectPath='/set-password'
-        />
-      )
+      path: '/register/confirm-password',
+      element: <RegisterConfirmPassword />
+    },
+    {
+      path: '/reset-password',
+      element: <ResetPassword />
+    },
+    {
+      path: '/reset-password/confirm',
+      element: <ResetPasswordConfirm />
     }
   ]
 }

@@ -1,31 +1,35 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
+import { useDocumentTitle } from '@shared/hooks'
 import { PrimaryButton } from '@shared/ui'
-import { InputEmail, InputPassword, validationRules } from '@shared/ui/inputs'
+import { InputEmail, validationRules } from '@shared/ui/inputs'
 
 import { Prompt } from '../components/ui'
 import { Or, SocialAuthButton, Title } from '../components/ui'
 import styles from './login.module.css'
 
-interface LoginFormInputs {
+interface EmailFormInputs {
   email: string
-  password: string
 }
 
-export const Login: FC = () => {
+export const Login: FC = memo(() => {
+  useDocumentTitle('Login')
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<LoginFormInputs>()
+  } = useForm<EmailFormInputs>()
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<EmailFormInputs> = async (data) => {
     console.log('Form data:', data)
+    await navigate('/login/verification')
   }
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <div className={styles.container}>
         <Title text='Log in' />
 
@@ -43,14 +47,7 @@ export const Login: FC = () => {
             {...register('email', validationRules.email)}
           />
 
-          <InputPassword
-            label='Password'
-            forgotPassword={true}
-            error={errors.password?.message}
-            {...register('password', validationRules.password)}
-          />
-
-          <PrimaryButton type='submit' text='Log in' />
+          <PrimaryButton type='submit' text='Next' />
         </form>
 
         <Or />
@@ -59,6 +56,6 @@ export const Login: FC = () => {
       </div>
 
       <Prompt question='New to Llamafolio?' answer='Create account' link='/register' />
-    </div>
+    </>
   )
-}
+})

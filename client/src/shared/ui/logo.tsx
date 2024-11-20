@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Logo as LogoIcon } from '@shared/icons'
 
@@ -8,10 +8,10 @@ interface LogoProps {
   width: number
 }
 
-export const Logo: FC<LogoProps> = ({ width }) => {
+export const Logo: FC<LogoProps> = memo(({ width }) => {
   return (
     <a className={styles.link} style={{ width }} href='/'>
       <LogoIcon className={styles.logo} />
     </a>
   )
-}
+})

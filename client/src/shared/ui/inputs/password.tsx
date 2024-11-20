@@ -24,7 +24,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
         <InputLabel text={label} />
 
         {forgotPassword && (
-          <a className={styles.link} href='/forgot-password'>
+          <a className={styles.link} href='/login/forgot-password'>
             Forgot password?
           </a>
         )}

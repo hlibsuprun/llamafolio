@@ -1,5 +1,4 @@
 export { Checkbox } from './checkbox'
-export { Input } from './input'
 export { Or } from './or'
 export { Prompt } from './prompt'
 export { SocialAuthButton } from './social-auth-button'

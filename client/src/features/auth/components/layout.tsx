@@ -1,11 +1,11 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { Logo } from '@shared/ui'
 
 import styles from './layout.module.css'
 
-export const Layout: FC = () => {
+export const Layout: FC = memo(() => {
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
@@ -13,8 +13,10 @@ export const Layout: FC = () => {
       </header>
 
       <main className={styles.main}>
-        <Outlet />
+        <div className={styles.container}>
+          <Outlet />
+        </div>
       </main>
     </div>
   )
-}
+})

@@ -7,14 +7,15 @@ import { PrimaryButton } from '@shared/ui'
 import { InputOtp, validationRules } from '@shared/ui/inputs'
 
 import { Prompt, Title } from '../components/ui'
-import styles from './register-verification.module.css'
+import styles from './login-verification.module.css'
 
 interface OtpFormInputs {
-  otp: string
+  otpEmail: string
+  otpApp: string
 }
 
-export const RegisterVerification: FC = memo(() => {
-  useDocumentTitle('Email Verification')
+export const LoginVerification: FC = memo(() => {
+  useDocumentTitle('Security Verification')
   const navigate = useNavigate()
   const {
     register,
@@ -24,18 +25,13 @@ export const RegisterVerification: FC = memo(() => {
 
   const onSubmit: SubmitHandler<OtpFormInputs> = async (data) => {
     console.log('Form data:', data)
-    await navigate('/register/set-password')
+    await navigate('/login/password')
   }
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.text}>
-          <Title text='Email Verification' />
-          <p className={styles.description}>
-            A 6-digit code has been sent to <i>example@example.com</i>.
-          </p>
-        </div>
+        <Title text='Security Verification' />
 
         <form
           className={styles.form}
@@ -46,17 +42,23 @@ export const RegisterVerification: FC = memo(() => {
           }}
         >
           <InputOtp
-            label='Verification Code'
+            label='Email Verification Code'
             resend={true}
-            error={errors.otp?.message}
-            {...register('otp', validationRules.otp)}
+            error={errors.otpEmail?.message}
+            {...register('otpEmail', validationRules.otp)}
+          />
+
+          <InputOtp
+            label='Authenticator App Code'
+            error={errors.otpApp?.message}
+            {...register('otpApp', validationRules.otp)}
           />
 
           <PrimaryButton type='submit' text='Next' />
         </form>
       </div>
 
-      <Prompt answer='← Back' link='/register' />
+      <Prompt answer='← Back' link='/login' />
     </>
   )
 })

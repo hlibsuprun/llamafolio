@@ -8,7 +8,7 @@ import styles from './otp.module.css'
 
 interface InputOtpProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
-  resend: boolean
+  resend?: true
   error: string | undefined
 }
 

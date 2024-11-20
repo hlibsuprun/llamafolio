@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import styles from './primary-button.module.css'
 
@@ -8,7 +8,7 @@ interface PrimaryButtonProps {
   href?: string
 }
 
-export const PrimaryButton: FC<PrimaryButtonProps> = ({ text, type, href }) => {
+export const PrimaryButton: FC<PrimaryButtonProps> = memo(({ text, type, href }) => {
   switch (type) {
     case 'link':
       return (
@@ -23,4 +23,4 @@ export const PrimaryButton: FC<PrimaryButtonProps> = ({ text, type, href }) => {
         </button>
       )
   }
-}
+})

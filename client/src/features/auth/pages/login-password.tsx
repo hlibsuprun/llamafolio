@@ -1,39 +1,33 @@
 import { FC, memo } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 
 import { useDocumentTitle } from '@shared/hooks'
 import { PrimaryButton } from '@shared/ui'
 import { InputPassword, validationRules } from '@shared/ui/inputs'
 
-import { Prompt, Title } from '../components/ui'
-import styles from './register-set-password.module.css'
+import { Title } from '../components/ui'
+import styles from './login-password.module.css'
 
 interface PasswordFormInputs {
   password: string
 }
 
-export const RegisterSetPassword: FC = memo(() => {
-  useDocumentTitle('Set Password')
-  const navigate = useNavigate()
+export const LoginPassword: FC = memo(() => {
+  useDocumentTitle('Welcome back')
   const {
     register,
-    watch,
     handleSubmit,
     formState: { errors }
   } = useForm<PasswordFormInputs>()
 
-  const password = watch('password', '')
-
-  const onSubmit: SubmitHandler<PasswordFormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<PasswordFormInputs> = (data) => {
     console.log('Form data:', data)
-    await navigate('/register/confirm-password')
   }
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <div className={styles.container}>
-        <Title text='Set Password' />
+        <Title text='Welcome back' />
 
         <form
           className={styles.form}
@@ -45,16 +39,14 @@ export const RegisterSetPassword: FC = memo(() => {
         >
           <InputPassword
             label='Password'
-            password={password}
+            forgotPassword={true}
             error={errors.password?.message}
-            {...register('password', validationRules.newPassword)}
+            {...register('password', validationRules.password)}
           />
 
-          <PrimaryButton type='submit' text='Next' />
+          <PrimaryButton type='submit' text='Log in' />
         </form>
       </div>
-
-      <Prompt answer='← Back' link='/register' />
-    </>
+    </div>
   )
 })

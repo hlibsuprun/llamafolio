@@ -7,6 +7,8 @@
   --surface-on: rgb(31, 41, 55);
   --surface-on-muted: rgb(107, 114, 128);
   --border-color: rgb(229, 231, 235);
+  --error-color: rgb(220, 38, 38);
+  --complete-color: #16a34a;
 
   /* Inputs */
   --input-text: rgb(31, 41, 55);
@@ -21,8 +23,6 @@
   --primary-color-50: rgba(124, 58, 237, 0.5);
   --primary-color-hover: rgb(109, 40, 217);
   --primary-color-on: rgb(255, 255, 255);
-  --error-color: rgb(185, 28, 28);
-  --complete-color: rgb(21, 128, 61);
 
   /* Shadows */
   --surface-shadow: 0 0 #0000, 0 0 #0000, 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
@@ -40,6 +40,8 @@
   --surface-on: rgb(229, 229, 229);
   --surface-on-muted: rgb(115, 115, 115);
   --border-color: rgb(82, 82, 82);
+  --error-color: rgb(185, 28, 28);
+  --complete-color: rgb(21, 128, 61);
 
   /* Inputs */
   --input-text: rgb(163, 163, 163);

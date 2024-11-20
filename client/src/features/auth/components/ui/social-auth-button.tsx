@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { GoogleLogo } from '@shared/icons'
 
@@ -8,11 +8,11 @@ interface SocialAuthButtonProps {
   social: 'Google'
 }
 
-export const SocialAuthButton: FC<SocialAuthButtonProps> = ({ social }) => {
+export const SocialAuthButton: FC<SocialAuthButtonProps> = memo(({ social }) => {
   return (
     <button className={styles.button} type='button'>
       {social === 'Google' && <GoogleLogo size='16' />}
       Continue with {social}
     </button>
   )
-}
+})
