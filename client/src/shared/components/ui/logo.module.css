@@ -1,0 +1,31 @@
+.link {
+  display: inline-flex;
+}
+
+.logo {
+  fill: var(--primary-color);
+  transition: var(--transition);
+}
+
+[data-theme='dark'] {
+  .logo {
+    fill: var(--background-on);
+  }
+}
+
+@media (hover: hover) {
+  .link:hover {
+    .logo {
+      fill: var(--primary-color-hover);
+    }
+  }
+
+  [data-theme='dark'] {
+    .link:hover {
+      .logo {
+        fill: var(--background-on);
+        opacity: 0.8;
+      }
+    }
+  }
+}

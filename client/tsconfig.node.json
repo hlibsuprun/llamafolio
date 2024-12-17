@@ -5,6 +5,7 @@
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "typeRoots": ["./src/global.d.ts", "./node_modules/@types"],
 
     /* Bundler mode */
     "moduleResolution": "Bundler",

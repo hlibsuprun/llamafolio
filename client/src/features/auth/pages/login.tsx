@@ -1,13 +1,15 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
+import { PrimaryButton } from '@shared/components/ui'
+import { InputEmail, validationRules } from '@shared/components/ui/inputs'
 import { useDocumentTitle } from '@shared/hooks'
-import { PrimaryButton } from '@shared/ui'
-import { InputEmail, validationRules } from '@shared/ui/inputs'
+import { AxiosError } from 'axios'
 
-import { Prompt } from '../components/ui'
-import { Or, SocialAuthButton, Title } from '../components/ui'
+import { fetchLoginData, login } from '../api'
+import { useAuthStore } from '../auth.store'
+import { Or, Prompt, SocialAuthButton, Title } from '../components/ui'
 import styles from './login.module.css'
 
 interface EmailFormInputs {
@@ -17,16 +19,36 @@ interface EmailFormInputs {
 export const Login: FC = memo(() => {
   useDocumentTitle('Login')
   const navigate = useNavigate()
+  const setLoginData = useAuthStore((state) => state.setLoginData)
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<EmailFormInputs>()
+  const [emailInputError, setEmailInputError] = useState<string | undefined>()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const onSubmit: SubmitHandler<EmailFormInputs> = async (data) => {
-    console.log('Form data:', data)
-    await navigate('/login/verification')
+  const onSubmit: SubmitHandler<EmailFormInputs> = async ({ email }) => {
+    setIsLoading(true)
+    try {
+      await login(email)
+      const loginResponse = await fetchLoginData()
+      if (loginResponse?.data) {
+        setLoginData(loginResponse.data)
+      }
+      void navigate('/login/verification')
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const data = error.response?.data as { detail?: string }
+        if (data?.detail === 'Email is not registered.') setEmailInputError(data?.detail)
+      }
+    }
+    setIsLoading(false)
   }
+
+  useEffect(() => {
+    setEmailInputError(errors.email?.message)
+  }, [errors.email?.message])
 
   return (
     <>
@@ -41,13 +63,9 @@ export const Login: FC = memo(() => {
             void handleSubmit(onSubmit)(e)
           }}
         >
-          <InputEmail
-            label='Email address'
-            error={errors.email?.message}
-            {...register('email', validationRules.email)}
-          />
+          <InputEmail label='Email address' error={emailInputError} {...register('email', validationRules.email)} />
 
-          <PrimaryButton type='submit' text='Next' />
+          <PrimaryButton type='submit' text='Next' loader={isLoading} />
         </form>
 
         <Or />

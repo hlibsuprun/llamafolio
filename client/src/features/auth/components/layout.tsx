@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { Logo } from '@shared/ui'
+import { Logo } from '@shared/components/ui'
 
 import styles from './layout.module.css'
 

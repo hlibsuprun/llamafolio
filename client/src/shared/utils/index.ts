@@ -1,1 +1,2 @@
-export { lowerDasher } from './lower-dasher'
+export * from './capitalize'
+export * from './lower-dasher'

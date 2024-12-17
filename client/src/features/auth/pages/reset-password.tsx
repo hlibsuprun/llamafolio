@@ -1,11 +1,12 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
+import { PrimaryButton } from '@shared/components/ui'
+import { InputPassword, validationRules } from '@shared/components/ui/inputs'
 import { useDocumentTitle } from '@shared/hooks'
-import { PrimaryButton } from '@shared/ui'
-import { InputPassword, validationRules } from '@shared/ui/inputs'
 
+import { fetchPasswordResetData, setPasswordResetPassword } from '../api'
 import { Prompt, Title } from '../components/ui'
 import styles from './reset-password.module.css'
 
@@ -16,19 +17,56 @@ interface PasswordFormInputs {
 export const ResetPassword: FC = memo(() => {
   useDocumentTitle('Reset Password')
   const navigate = useNavigate()
+  const { token } = useParams()
   const {
     register,
     watch,
     handleSubmit,
     formState: { errors }
   } = useForm<PasswordFormInputs>()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isPageLoading, setIsPageLoading] = useState<boolean>(true)
 
   const password = watch('password', '')
 
-  const onSubmit: SubmitHandler<PasswordFormInputs> = async (data) => {
-    console.log('Form data:', data)
-    await navigate('/reset-password/confirm')
+  const onSubmit: SubmitHandler<PasswordFormInputs> = async ({ password }) => {
+    setIsLoading(true)
+    if (!token) {
+      void navigate('/')
+      return
+    }
+
+    try {
+      await setPasswordResetPassword(password, token)
+      await navigate(`/reset-password/confirm/${token}`)
+    } catch {
+      void navigate('/login')
+    }
+    setIsLoading(false)
   }
+
+  useEffect(() => {
+    const checkToken = async () => {
+      if (!token) void navigate('/')
+      else {
+        try {
+          const response = await fetchPasswordResetData(token)
+
+          if (!response.data) {
+            void navigate('/')
+          } else {
+            setIsPageLoading(false)
+          }
+        } catch {
+          void navigate('/login')
+        }
+      }
+    }
+
+    void checkToken()
+  }, [])
+
+  if (isPageLoading) return <></>
 
   return (
     <>
@@ -50,7 +88,7 @@ export const ResetPassword: FC = memo(() => {
             {...register('password', validationRules.newPassword)}
           />
 
-          <PrimaryButton type='submit' text='Next' />
+          <PrimaryButton type='submit' text='Next' loader={isLoading} />
         </form>
       </div>
 

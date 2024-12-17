@@ -1,4 +1,5 @@
 import { FC, memo } from 'react'
+import { Link } from 'react-router-dom'
 
 import styles from './prompt.module.css'
 
@@ -12,9 +13,9 @@ export const Prompt: FC<PromptProps> = memo(({ question, answer, link }) => {
   return (
     <div className={styles.wrapper}>
       {question}{' '}
-      <a className={styles.link} href={link}>
+      <Link className={styles.link} to={link}>
         {answer}
-      </a>
+      </Link>
     </div>
   )
 })

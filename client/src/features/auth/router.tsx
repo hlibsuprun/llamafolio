@@ -45,11 +45,11 @@ export const router: RouteObject = {
       element: <RegisterConfirmPassword />
     },
     {
-      path: '/reset-password',
+      path: '/reset-password/:token',
       element: <ResetPassword />
     },
     {
-      path: '/reset-password/confirm',
+      path: '/reset-password/confirm/:token',
       element: <ResetPasswordConfirm />
     }
   ]

@@ -1,0 +1,44 @@
+.loader {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5px;
+  height: 12px;
+}
+
+.item {
+  height: 5px;
+  width: 3px;
+  transform-origin: top;
+  background-color: currentColor;
+  animation: loader 1.5s linear infinite;
+}
+
+@keyframes loader {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+
+  7.5% {
+    transform: translateY(-120%) scaleY(2);
+  }
+
+  15%,
+  35% {
+    transform: translateY(-120%) scaleY(0.5);
+  }
+
+  43.5% {
+    transform: translateY(0) scaleY(2);
+  }
+
+  52.5%,
+  72.5% {
+    transform: translateY(120%) scaleY(0.5);
+  }
+
+  80%,
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+}

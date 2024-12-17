@@ -1,1 +1,2 @@
-export { router } from './router'
+export * from './auth.store'
+export * from './router'

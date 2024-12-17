@@ -1,3 +1,3 @@
-export { ThemeProvider, useTheme } from '@features/theme/theme.context'
-export { ThemeToggle } from './theme-toggle.component'
-export type { Theme } from './theme'
+export type * from './theme'
+export * from './theme-toggle.component'
+export * from './theme.context'
